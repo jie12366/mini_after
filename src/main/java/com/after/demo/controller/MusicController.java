@@ -2,10 +2,16 @@ package com.after.demo.controller;
 
 import com.after.demo.entity.Music;
 import com.after.demo.service.impl.MusicServiceImpl;
+import com.after.demo.service.impl.UploadServiceImpl;
+import com.after.demo.spider.FileDownload;
 import com.after.demo.spider.HtmlManage;
 import com.after.demo.spider.HttpGetConnect;
 import com.after.demo.utils.GetString;
 import com.after.demo.utils.JsonResult;
+import com.google.gson.Gson;
+import com.qiniu.common.QiniuException;
+import com.qiniu.http.Response;
+import com.qiniu.storage.model.DefaultPutRet;
 import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
@@ -17,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,7 +38,10 @@ public class MusicController {
 
     @Autowired
     MusicServiceImpl musicService;
+    @Autowired
+    UploadServiceImpl uploadService;
 
+    public static String FILEPATH = "F:/music/";
     public static String mp3 = "https://wwwapi.kugou.com/yy/index.php?r=play/getdata&callback=jQuery191027067069941080546_1546235744250&"
             + "hash=HASH&album_id=0&_=TIME";
 
@@ -98,9 +108,25 @@ public class MusicController {
         JSONObject json = JSONObject.fromObject(mp);
         String playUrl = json.getJSONObject("data").getString("play_url");
 
+        //将该歌曲信息先下载到本地文件
+        FileDownload fileDownload = new FileDownload();
+        fileDownload.download(playUrl,FILEPATH + name + ".mp3");
+
+        String src = null;
+        try{
+            //把音乐文件上传到七牛云
+            File file = new File(FILEPATH + name + ".mp3");
+            Response response = uploadService.uploadFile(file);
+            //解析上传成功的结果
+            DefaultPutRet  putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
+            src = "http://www.jie12366.xyz/" + putRet.key;
+        }catch (QiniuException e){
+            e.printStackTrace();
+        }
+
         //如果图片地址或mp3地址为空，则不爬取（歌曲是收费的无法爬取）
-        if (StringUtils.isNotBlank(playUrl) && StringUtils.isNotBlank(imgUrl)){
-            musicService.saveMusic(name,imgUrl,playUrl);
+        if (StringUtils.isNotBlank(src) && StringUtils.isNotBlank(imgUrl)){
+            musicService.saveMusic(name,imgUrl,src);
         }
         return playUrl;
     }

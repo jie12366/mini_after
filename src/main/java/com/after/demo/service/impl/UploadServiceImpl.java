@@ -47,6 +47,7 @@ public class UploadServiceImpl implements UploadService, InitializingBean {
         return response;
     }
 
+    @Override
     public String getPic(HttpServletRequest request, MultipartFile image) throws IOException {
         //根据时间戳创建文件名
         String fileName = System.currentTimeMillis() + image.getOriginalFilename();

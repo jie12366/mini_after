@@ -22,6 +22,13 @@ public interface UploadService {
      */
     Response uploadFile(File file) throws QiniuException;
 
+    /**
+     * 上传图片到七牛云并返回地址
+     * @param request
+     * @param image
+     * @return
+     * @throws IOException
+     */
     String getPic(HttpServletRequest request, MultipartFile image) throws IOException;
 
     /**
