@@ -119,7 +119,7 @@ public class MusicController {
             Response response = uploadService.uploadFile(file);
             //解析上传成功的结果
             DefaultPutRet  putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
-            src = "http://www.jie12366.xyz/" + putRet.key;
+            src = "http://cdn.jie12366.xyz/" + putRet.key;
         }catch (QiniuException e){
             e.printStackTrace();
         }
