@@ -176,16 +176,6 @@
             <artifactId>qiniu-java-sdk</artifactId>
             <version>7.2.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-elasticsearch -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.jna</groupId>
-            <artifactId>jna</artifactId>
-            <version>3.0.9</version>
-        </dependency>
         <!--集合工具包-->
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -203,6 +193,16 @@
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
             <version>0.4.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.8</version>
         </dependency>
 
     </dependencies>
