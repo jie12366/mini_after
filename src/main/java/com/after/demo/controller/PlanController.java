@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -24,14 +25,17 @@ public class PlanController {
 
     @ApiOperation("将用户的计划存入数据库")
     @PostMapping("/plan/save")
-    public JsonResult savePlan(@ApiParam("用户名") String nickName, @ApiParam("计划内容") String content){
+    public JsonResult savePlan(HttpServletRequest request){
+        String nickName = request.getParameter("nickName");
+        String content = request.getParameter("content");
         planService.savePlan(nickName,content);
         return JsonResult.ok();
     }
 
     @ApiOperation("根据用户名返回所有计划")
     @PostMapping("/plan/get")
-    public JsonResult getPlan(@ApiParam("用户名") String nickName){
+    public JsonResult getPlan(HttpServletRequest request){
+        String nickName = request.getParameter("nickName");
         List<Plan> planList = planService.listPlanByName(nickName);
         return JsonResult.ok(planList);
     }

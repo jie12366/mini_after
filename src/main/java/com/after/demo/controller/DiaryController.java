@@ -32,7 +32,8 @@ public class DiaryController {
 
     @ApiOperation("获取某个用户的所有日记")
     @PostMapping("/diary/get")
-    public JsonResult getDiary(String nickName){
+    public JsonResult getDiary(HttpServletRequest request){
+        String nickName = request.getParameter("nickName");
         List<Diary> diaryList = diaryService.getDiaryByName(nickName);
         return JsonResult.ok(diaryList);
     }
@@ -40,9 +41,11 @@ public class DiaryController {
     @ApiOperation("将用户的日记存入数据库")
     @PostMapping("/diary/save")
     public JsonResult saveDiary(HttpServletRequest request,
-                                @RequestParam(value = "image", required = false) MultipartFile image,
-                                @ApiParam("标题") String title, @ApiParam("内容")String content,
-                                @ApiParam("用户名")String nickName, @ApiParam("存入时间")String time){
+                                @RequestParam(value = "image", required = false) MultipartFile image){
+        String nickName = request.getParameter("nickName");
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        String time = request.getParameter("time");
         try{
             diaryService.saveDiary(nickName,uploadService.getPic(request,image),title,content,time);
         } catch (IOException e) {
@@ -54,8 +57,11 @@ public class DiaryController {
     @ApiOperation("根据id更新日记")
     @PostMapping("/diary/update")
     public JsonResult updateDiary(HttpServletRequest request,
-                                  @RequestParam("image") MultipartFile image,
-                                  int id,String title,String content,String time){
+                                  @RequestParam("image") MultipartFile image){
+        int id = Integer.parseInt(request.getParameter("id"));
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        String time = request.getParameter("time");
         try {
             diaryService.updateDiary(uploadService.getPic(request,image),title,content,time,id);
         }catch (IOException e){
@@ -66,7 +72,8 @@ public class DiaryController {
 
     @ApiOperation("根据id删除日记")
     @PostMapping("/diary/delete")
-    public JsonResult deleteDiary(int id){
+    public JsonResult deleteDiary(HttpServletRequest request){
+        int id = Integer.parseInt(request.getParameter("id"));
         int ok = diaryService.deleteDiary(id);
         return JsonResult.ok(ok);
     }
