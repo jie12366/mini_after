@@ -2,6 +2,9 @@ package com.after.demo.service;
 
 import com.after.demo.entity.Music;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,6 +14,7 @@ import java.util.List;
  * @date 2019/4/19 21:09
  */
 @Service
+@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 public interface MusicService {
 
     /**

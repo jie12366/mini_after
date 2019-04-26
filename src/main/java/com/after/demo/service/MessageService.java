@@ -2,6 +2,9 @@ package com.after.demo.service;
 
 import com.after.demo.entity.Message;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,6 +14,8 @@ import java.util.List;
  * @date 2019/4/11 8:01
  */
 @Service
+@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+
 public interface MessageService {
 
     /**
@@ -19,7 +24,6 @@ public interface MessageService {
      * @param nickName
      * @param avatarUrl
      * @param mess
-     * @param date
      * @return
      */
     int saveMessage(int articleId, String nickName, String avatarUrl, String mess);

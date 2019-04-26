@@ -125,7 +125,7 @@ public class MusicController {
         }
 
         //如果图片地址或mp3地址为空，则不爬取（歌曲是收费的无法爬取）
-        if (StringUtils.isNotBlank(src) && StringUtils.isNotBlank(imgUrl)){
+        if (StringUtils.isNotBlank(src) || StringUtils.isNotBlank(imgUrl)){
             musicService.saveMusic(name,imgUrl,src);
         }
         return playUrl;

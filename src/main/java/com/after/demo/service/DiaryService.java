@@ -2,6 +2,9 @@ package com.after.demo.service;
 
 import com.after.demo.entity.Diary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,6 +14,7 @@ import java.util.List;
  * @date 2019/4/16 20:13
  */
 @Service
+@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 public interface DiaryService {
 
     /**
@@ -19,6 +23,7 @@ public interface DiaryService {
      * @param picture
      * @param title
      * @param content
+     * @param time
      * @return
      */
     int saveDiary(String userName,String picture,String title,String content,String time);
@@ -41,6 +46,8 @@ public interface DiaryService {
      * @param title
      * @param content
      * @param id
+     * @param time
+     * @param photo
      * @return
      */
     int updateDiary(String photo,String title,String content,String time,int id);
