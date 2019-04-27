@@ -36,4 +36,7 @@ public class Diary {
 
     @Column(name = "time",type = MySqlTypeConstant.VARCHAR)
     private String time;
+
+    @Column(name = "sentiment", type = MySqlTypeConstant.INT)
+    private int sentiment;
 }
