@@ -1,6 +1,7 @@
 package com.after.demo.controller;
 
 import com.after.demo.entity.Plan;
+import com.after.demo.entity.Progress;
 import com.after.demo.service.impl.PlanServiceImpl;
 import com.after.demo.utils.JsonResult;
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +32,7 @@ public class PlanController {
         return JsonResult.ok();
     }
 
-    @ApiOperation("根据用户名返回所有计划")
+    @ApiOperation("根据用户名和时间返回计划")
     @PostMapping("/plan/get")
     public JsonResult getPlan(HttpServletRequest request){
         String nickName = request.getParameter("nickName");
@@ -58,5 +59,17 @@ public class PlanController {
         }else {
             return JsonResult.errorMsg("error");
         }
+    }
+
+    @ApiOperation("根据用户名和时间获取计划进度")
+    @PostMapping("/progress/get")
+    public JsonResult getProgress(HttpServletRequest request){
+        String nickName = request.getParameter("nickName");
+        String date = request.getParameter("date");
+        Progress progress = planService.getProgress(nickName,date);
+        if (progress == null){
+            return JsonResult.errorMsg("error");
+        }
+        return JsonResult.ok(progress);
     }
 }

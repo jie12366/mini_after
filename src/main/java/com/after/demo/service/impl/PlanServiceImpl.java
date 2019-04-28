@@ -57,6 +57,11 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
+    public Progress getProgress(String userName, String time) {
+        return progressMapper.getProgress(userName, time);
+    }
+
+    @Override
     public int updateStatus(int id) {
         int status = planMapper.getStatusById(id);
         System.out.println("status = " + status);

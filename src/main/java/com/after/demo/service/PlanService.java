@@ -1,6 +1,7 @@
 package com.after.demo.service;
 
 import com.after.demo.entity.Plan;
+import com.after.demo.entity.Progress;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -34,6 +35,14 @@ public interface PlanService {
      * @return
      */
     List<Plan> listPlanByName(String userName,String time);
+
+    /**
+     * 根据用户名和时间获取计划进度
+     * @param userName
+     * @param time
+     * @return
+     */
+    Progress getProgress(String userName,String time);
 
     /**
      * 更改计划完成的状态
