@@ -29,4 +29,7 @@ public class Plan {
 
     @Column(name = "time",type = MySqlTypeConstant.VARCHAR)
     private String time;
+
+    @Column(name = "status", type = MySqlTypeConstant.INT,defaultValue = "0")
+    private  int status;
 }

@@ -4,7 +4,6 @@ import com.after.demo.entity.Plan;
 import com.after.demo.service.impl.PlanServiceImpl;
 import com.after.demo.utils.JsonResult;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +35,28 @@ public class PlanController {
     @PostMapping("/plan/get")
     public JsonResult getPlan(HttpServletRequest request){
         String nickName = request.getParameter("nickName");
-        List<Plan> planList = planService.listPlanByName(nickName);
+        String date = request.getParameter("date");
+        List<Plan> planList = planService.listPlanByName(nickName,date);
         return JsonResult.ok(planList);
+    }
+
+    @ApiOperation("根据id删除计划")
+    @PostMapping("/plan/delete")
+    public JsonResult deletePlan(HttpServletRequest request){
+        int id = Integer.parseInt(request.getParameter("id"));
+        int res = planService.deletePlan(id);
+        return JsonResult.ok(res);
+    }
+
+    @ApiOperation("根据id更新计划的状态")
+    @PostMapping("/plan/update")
+    public JsonResult updatePlanStatus(HttpServletRequest request){
+        int id = Integer.parseInt(request.getParameter("id"));
+        int res = planService.updateStatus(id);
+        if (res == 1){
+            return JsonResult.ok(res);
+        }else {
+            return JsonResult.errorMsg("error");
+        }
     }
 }

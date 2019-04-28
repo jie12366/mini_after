@@ -14,10 +14,15 @@ import java.util.HashMap;
 @Configuration
 public class AipNlpConfig {
 
-    public static final String APP_ID = "16126070";
-    public static final String API_KEY = "OSaN0W1shtWfjQAOM6MUAsdU";
-    public static final String SECRET_KEY = "ACc6Mzwk8ULr7Wla42GCUwghwSqO4rwZ";
+    private static final String APP_ID = "16126070";
+    private static final String API_KEY = "OSaN0W1shtWfjQAOM6MUAsdU";
+    private static final String SECRET_KEY = "ACc6Mzwk8ULr7Wla42GCUwghwSqO4rwZ";
 
+    /**
+     * 根据传入的文本进行情感分析
+     * @param text 文本内容
+     * @return 情感分析结果
+     */
     public JSONObject sentimentClassify(String text){
         // 初始化一个AipNlp
         AipNlp client = new AipNlp(APP_ID, API_KEY, SECRET_KEY);

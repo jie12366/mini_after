@@ -1,9 +1,6 @@
 package com.after.demo;
 
-import com.after.demo.config.AipNlpConfig;
-import com.after.demo.service.impl.DiaryServiceImpl;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.after.demo.service.impl.PlanServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +12,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class DemoApplicationTests {
 
     @Autowired
-    AipNlpConfig aipNlpConfig;
-
-    @Autowired
-    DiaryServiceImpl diaryService;
+    PlanServiceImpl planService;
 
     @Test
-    public void contextLoads() throws JSONException {
-        String text = "今天和朋友出去玩了，吃了好多好吃的";
-        JSONObject res = aipNlpConfig.sentimentClassify(text);
-        System.out.println(res);
-        System.out.println(res.getJSONArray("items").getJSONObject(0).getDouble("positive_prob"));
-        diaryService.saveDiary("杰","sss","测试","我今天和朋友去看了个电影","2019-4-27");
+    public void contextLoads(){
+        System.out.println("hello");
     }
 }
