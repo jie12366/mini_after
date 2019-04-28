@@ -16,6 +16,8 @@ public class DemoApplicationTests {
 
     @Test
     public void contextLoads(){
-        System.out.println("hello");
+        String time = "2019-04-28";
+        int time1 =  Integer.parseInt(time.substring(8));
+        System.out.println(time1);
     }
 }

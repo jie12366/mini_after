@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -33,6 +34,13 @@ public interface DiaryService {
      * @return
      */
     List<Diary> listDiary();
+
+    /**
+     * 根据用户名和时间获取情绪平均值
+     * @param userName
+     * @return
+     */
+    net.sf.json.JSONObject listSentiment(String userName,String time);
 
     /**
      * 根据id获取日记

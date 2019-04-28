@@ -5,6 +5,7 @@ import com.after.demo.service.impl.DiaryServiceImpl;
 import com.after.demo.service.impl.UploadServiceImpl;
 import com.after.demo.utils.JsonResult;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author www.xyjz123.xyz
@@ -75,5 +76,14 @@ public class DiaryController {
         int id = Integer.parseInt(request.getParameter("id"));
         int ok = diaryService.deleteDiary(id);
         return JsonResult.ok(ok);
+    }
+
+    @ApiOperation("根据用户名和时间获取过去一周的情绪值")
+    @PostMapping("/sentiment/get")
+    public JsonResult getSentiment(HttpServletRequest request){
+        String userName = request.getParameter("nickName");
+        String time = request.getParameter("time");
+        JSONObject jsonObject = diaryService.listSentiment(userName,time);
+        return JsonResult.ok(jsonObject);
     }
 }

@@ -42,6 +42,15 @@ public interface DiaryMapper {
     List<Diary> getDiaryByName(String  userName);
 
     /**
+     * 根据用户名和时间获取情绪值
+     * @param userName
+     * @param time
+     * @return
+     */
+    @Select("select sentiment from diary where userName=#{userName} and time=#{time}")
+    List<Integer> listSentiment(String userName,String time);
+
+    /**
      * 更新日记
      * @param title
      * @param photo

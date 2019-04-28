@@ -4,11 +4,14 @@ import com.after.demo.config.AipNlpConfig;
 import com.after.demo.entity.Diary;
 import com.after.demo.mapper.DiaryMapper;
 import com.after.demo.service.DiaryService;
+import com.after.demo.utils.CalendarUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -47,6 +50,29 @@ public class DiaryServiceImpl implements DiaryService {
     @Override
     public List<Diary> listDiary() {
         return diaryMapper.listDiary();
+    }
+
+    @Override
+    public net.sf.json.JSONObject listSentiment(String userName,String time) {
+        ArrayList<String> dayLists = CalendarUtil.pastDay(time);
+        int[] sentiments = new int[7];
+        net.sf.json.JSONObject jsonObject = new net.sf.json.JSONObject();
+        for (int i = 0;i <= 6;i++){
+            List<Integer> integerList = diaryMapper.listSentiment(userName,dayLists.get(i));
+            dayLists.set(i,dayLists.get(i).substring(5));
+            if (integerList.size() == 0){
+                sentiments[i] = 0;
+            }else {
+                int sentiment = 0;
+                for (Integer integer : integerList){
+                    sentiment += integer;
+                }
+                sentiments[i] = sentiment / integerList.size();
+            }
+        }
+        jsonObject.put("sentiment",sentiments);
+        jsonObject.put("date",dayLists);
+        return jsonObject;
     }
 
     @Override
