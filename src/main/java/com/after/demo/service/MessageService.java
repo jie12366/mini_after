@@ -20,33 +20,20 @@ public interface MessageService {
 
     /**
      * 增加评论
-     * @param articleId
+     * @param wishId
      * @param nickName
      * @param avatarUrl
      * @param mess
      * @return
      */
-    int saveMessage(int articleId, String nickName, String avatarUrl, String mess);
+    int saveMessage(int wishId, String nickName, String avatarUrl, String mess);
 
     /**
      * 根据文章id获取评论
-     * @param articleId
+     * @param wishId
      * @return
      */
-    List<Message> listMessage(int articleId);
-
-    /**
-     * 根据id获取评论
-     * @param id
-     * @return
-     */
-    Message getMessageById(int id);
-
-    /**
-     * 列出所有评论
-     * @return
-     */
-    List<Message> listMessageAll();
+    List<Message> listMessage(int wishId);
 
     /**
      * 根据id删除评论

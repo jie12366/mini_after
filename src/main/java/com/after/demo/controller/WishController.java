@@ -1,6 +1,7 @@
 package com.after.demo.controller;
 
 import com.after.demo.entity.Wish;
+import com.after.demo.service.MessageService;
 import com.after.demo.service.impl.UploadServiceImpl;
 import com.after.demo.service.impl.WishServiceImpl;
 import com.after.demo.utils.JsonResult;
@@ -8,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +27,8 @@ public class WishController {
     WishServiceImpl wishService;
     @Autowired
     UploadServiceImpl uploadService;
+    @Autowired
+    MessageService messageService;
 
     @ApiOperation("根据用户名返回所有wish")
     @PostMapping("/wish/get")
@@ -57,7 +61,7 @@ public class WishController {
         return JsonResult.ok();
     }
 
-    @ApiParam("根据id更新wish")
+    @ApiOperation("根据id更新wish")
     @PostMapping("/wish/update")
     public JsonResult updateDiary(HttpServletRequest request){
         int id = Integer.parseInt(request.getParameter("id"));
@@ -67,11 +71,29 @@ public class WishController {
         return JsonResult.ok();
     }
 
-    @ApiParam("根据id删除wish")
+    @ApiOperation("根据id删除wish")
     @PostMapping("/wish/delete")
     public JsonResult deleteDiary(HttpServletRequest request){
         int id = Integer.parseInt(request.getParameter("id"));
         int ok = wishService.deleteWish(id);
         return JsonResult.ok(ok);
+    }
+
+    @ApiOperation("增加评论")
+    @PostMapping("/message/save")
+    public JsonResult saveMessage(@ApiParam("愿望id") @RequestParam("wishId") int wishId,
+                                  @ApiParam("用户名") @RequestParam("nickName") String nickName,
+                                  @ApiParam("用户头像") @RequestParam("avatarUrl") String avatarUrl,
+                                  @ApiParam("用户评论") @RequestParam("mess") String mess){
+
+        int res = messageService.saveMessage(wishId,nickName,avatarUrl,mess);
+        return JsonResult.ok(res);
+    }
+
+    @ApiOperation("根据id获取评论")
+    @PostMapping("/message/get")
+    public JsonResult getMessage(@ApiParam("愿望id") @RequestParam("wishId") int wishId){
+
+        return JsonResult.ok(messageService.listMessage(wishId));
     }
 }

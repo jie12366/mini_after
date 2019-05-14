@@ -22,25 +22,15 @@ public class MessageServiceImpl implements MessageService {
     MessageMapper messageMapper;
 
     @Override
-    public int saveMessage(int articleId,String nickName,String avatarUrl,String mess) {
+    public int saveMessage(int wishId,String nickName,String avatarUrl,String mess) {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return messageMapper.saveMessage(articleId,nickName,avatarUrl,mess,sdf.format(date));
+        return messageMapper.saveMessage(wishId,nickName,avatarUrl,mess,sdf.format(date));
     }
 
     @Override
-    public List<Message> listMessage(int articleId) {
-        return messageMapper.listMessage(articleId);
-    }
-
-    @Override
-    public List<Message> listMessageAll() {
-        return messageMapper.listMessageAll();
-    }
-
-    @Override
-    public Message getMessageById(int id) {
-        return messageMapper.getMessageById(id);
+    public List<Message> listMessage(int wishId) {
+        return messageMapper.listMessage(wishId);
     }
 
     @Override

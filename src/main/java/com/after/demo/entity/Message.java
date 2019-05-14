@@ -21,8 +21,8 @@ public class Message {
     @Column(name = "id", type = MySqlTypeConstant.INT, isKey = true, isAutoIncrement = true, length = 5)
     private int id;
 
-    @Column(name = "articleId", type = MySqlTypeConstant.INT, length = 5)
-    private String articleId;
+    @Column(name = "wishId", type = MySqlTypeConstant.INT, length = 5)
+    private String wishId;
 
     @Column(name = "nickName", type = MySqlTypeConstant.VARCHAR, length = 20)
     private String nickName;

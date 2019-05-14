@@ -5,6 +5,7 @@ import com.after.demo.service.impl.DiaryServiceImpl;
 import com.after.demo.service.impl.UploadServiceImpl;
 import com.after.demo.utils.JsonResult;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,11 +58,11 @@ public class DiaryController {
     @ApiOperation("根据id更新日记")
     @PostMapping("/diary/update")
     public JsonResult updateDiary(HttpServletRequest request,
-                                  @RequestParam("image") MultipartFile image){
-        int id = Integer.parseInt(request.getParameter("id"));
-        String title = request.getParameter("title");
-        String content = request.getParameter("content");
-        String time = request.getParameter("time");
+                                  @ApiParam("图片") @RequestParam("image") MultipartFile image,
+                                  @ApiParam("日记id") @RequestParam("id") int id,
+                                  @ApiParam("标题") @RequestParam("title") String title,
+                                  @ApiParam("内容") @RequestParam("content") String content,
+                                  @ApiParam("时间") @RequestParam("time") String time){
         try {
             diaryService.updateDiary(uploadService.getPic(request,image),title,content,time,id);
         }catch (IOException e){

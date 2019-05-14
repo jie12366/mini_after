@@ -60,7 +60,7 @@ public class CalendarUtil {
     }
 
     /**
-     * 获取未来 第 past 天的日期
+     * 获取未来 第 future 天的日期
      * @param future
      * @return
      */

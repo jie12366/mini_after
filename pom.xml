@@ -138,17 +138,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--增加对thymeleaf的依赖-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <!--对thymeleaf LEGACYHTML5的支持-->
-        <dependency>
-            <groupId>net.sourceforge.nekohtml</groupId>
-            <artifactId>nekohtml</artifactId>
-            <version>1.9.22</version>
-        </dependency>
         <!--swagger2的依赖-->
         <dependency>
             <groupId>io.springfox</groupId>
