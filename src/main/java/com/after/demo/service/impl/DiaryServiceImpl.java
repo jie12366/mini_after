@@ -52,6 +52,11 @@ public class DiaryServiceImpl implements DiaryService {
     }
 
     @Override
+    public Diary getDiaryById(int id) {
+        return diaryMapper.getDiaryById(id);
+    }
+
+    @Override
     public net.sf.json.JSONObject listSentiment(String userName,String time) {
         ArrayList<String> dayLists = CalendarUtil.pastDay(time);
         int[] sentiments = new int[7];

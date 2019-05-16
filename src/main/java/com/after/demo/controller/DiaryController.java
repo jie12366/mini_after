@@ -39,6 +39,13 @@ public class DiaryController {
         return JsonResult.ok(diaryList);
     }
 
+    @ApiOperation("获取某个用户的所有日记")
+    @PostMapping("/diary/getOne")
+    public JsonResult getDiary(@ApiParam("日记id") @RequestParam("id") int id){
+        Diary diary = diaryService.getDiaryById(id);
+        return JsonResult.ok(diary);
+    }
+
     @ApiOperation("将用户的日记存入数据库")
     @PostMapping("/diary/save")
     public JsonResult saveDiary(HttpServletRequest request,

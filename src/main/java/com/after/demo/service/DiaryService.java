@@ -36,6 +36,13 @@ public interface DiaryService {
     List<Diary> listDiary();
 
     /**
+     * 根据id获取日记信息
+     * @param id
+     * @return
+     */
+    Diary getDiaryById(int id);
+
+    /**
      * 根据用户名和时间获取情绪平均值
      * @param userName
      * @return

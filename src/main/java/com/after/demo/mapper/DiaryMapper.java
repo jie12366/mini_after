@@ -42,6 +42,14 @@ public interface DiaryMapper {
     List<Diary> getDiaryByName(String  userName);
 
     /**
+     * 根据id获取日记信息
+     * @param id
+     * @return
+     */
+    @Select("select * from diary where id=#{id}")
+    Diary getDiaryById(int id);
+
+    /**
      * 根据用户名和时间获取情绪值
      * @param userName
      * @param time
