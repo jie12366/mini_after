@@ -55,8 +55,8 @@ public class DiaryController {
         return JsonResult.ok();
     }
 
-    @ApiOperation("根据id更新日记")
-    @PostMapping("/diary/update")
+    @ApiOperation("根据id更新日记（更新图片）")
+    @PostMapping("/diary/update1")
     public JsonResult updateDiary(HttpServletRequest request,
                                   @ApiParam("图片") @RequestParam("image") MultipartFile image,
                                   @ApiParam("日记id") @RequestParam("id") int id,
@@ -69,6 +69,18 @@ public class DiaryController {
             e.printStackTrace();
         }
         return JsonResult.ok();
+    }
+
+    @ApiOperation("根据id更新日记（不更新图片）")
+    @PostMapping("/diary/update2")
+    public JsonResult updateDiary(@ApiParam("图片") @RequestParam("image") String image,
+                                  @ApiParam("日记id") @RequestParam("id") int id,
+                                  @ApiParam("标题") @RequestParam("title") String title,
+                                  @ApiParam("内容") @RequestParam("content") String content,
+                                  @ApiParam("时间") @RequestParam("time") String time){
+
+        int res = diaryService.updateDiary(image,title,content,time,id);
+        return JsonResult.ok(res);
     }
 
     @ApiOperation("根据id删除日记")
