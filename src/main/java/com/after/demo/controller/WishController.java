@@ -5,6 +5,7 @@ import com.after.demo.service.MessageService;
 import com.after.demo.service.impl.UploadServiceImpl;
 import com.after.demo.service.impl.WishServiceImpl;
 import com.after.demo.utils.JsonResult;
+import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,8 +93,21 @@ public class WishController {
 
     @ApiOperation("根据id获取评论")
     @PostMapping("/message/get")
-    public JsonResult getMessage(@ApiParam("愿望id") @RequestParam("wishId") int wishId){
+    public JsonResult getMessage(@ApiParam("愿望id") @RequestParam("wishId") int wishId,
+                                 @ApiParam("当前页") @RequestParam("start") int start,
+                                 @ApiParam("每页大小") @RequestParam("size") int size){
 
+        //用pageHelper拦截器分页
+        PageHelper.startPage(start,size,"id desc");
         return JsonResult.ok(messageService.listMessage(wishId));
+    }
+
+    @ApiOperation("根据id删除评论")
+    @PostMapping("/message/delete")
+    public JsonResult deleteMessage(@ApiParam("评论id") @RequestParam("id") int id){
+
+        int res = messageService.deleteMessage(id);
+
+        return JsonResult.ok(res);
     }
 }
