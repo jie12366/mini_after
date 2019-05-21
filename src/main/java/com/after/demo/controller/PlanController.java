@@ -5,8 +5,10 @@ import com.after.demo.entity.Progress;
 import com.after.demo.service.impl.PlanServiceImpl;
 import com.after.demo.utils.JsonResult;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,6 +61,15 @@ public class PlanController {
         }else {
             return JsonResult.errorMsg("error");
         }
+    }
+
+    @ApiOperation("更新计划的内容")
+    @PostMapping("/plan/updateContent")
+    public JsonResult updatePlan(@ApiParam("计划内容")@RequestParam("content") String content,
+                                 @ApiParam("计划id")@RequestParam("id") int id){
+
+        int res = planService.updatePlan(content,id);
+        return JsonResult.ok(res);
     }
 
     @ApiOperation("根据用户名和时间获取计划进度")

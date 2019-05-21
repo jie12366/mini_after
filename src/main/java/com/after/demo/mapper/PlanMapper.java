@@ -68,6 +68,17 @@ public interface PlanMapper {
     int updateStatus(int status,int id);
 
     /**
+     * 根据id更新计划，并将status重置
+     * @param content
+     * @param time
+     * @param status
+     * @param id
+     * @return
+     */
+    @Update("update plan set content=#{content},time=#{time},status=#{status} where id=#{id}")
+    int updatePlan(String content,String time,int status,int id);
+
+    /**
      * 根据id删除计划
      * @param id
      * @return

@@ -82,6 +82,14 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
+    public int updatePlan(String content, int id) {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date1 = sdf.format(date);
+        return planMapper.updatePlan(content,date1,0,id);
+    }
+
+    @Override
     public int deletePlan(int id) {
         return planMapper.deletePlan(id);
     }

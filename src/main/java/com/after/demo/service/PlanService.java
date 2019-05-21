@@ -52,6 +52,14 @@ public interface PlanService {
     int updateStatus(int id);
 
     /**
+     * 根据id更新计划，并将status重置
+     * @param content
+     * @param id
+     * @return
+     */
+    int updatePlan(String content,int id);
+
+    /**
      * 根据id删除计划
      * @param id
      * @return
