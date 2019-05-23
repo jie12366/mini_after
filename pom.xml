@@ -199,7 +199,6 @@
             <artifactId>java-sdk</artifactId>
             <version>4.8.0</version>
         </dependency>
-
     </dependencies>
 
     <build>

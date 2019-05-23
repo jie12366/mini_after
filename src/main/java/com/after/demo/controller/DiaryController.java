@@ -4,6 +4,7 @@ import com.after.demo.entity.Diary;
 import com.after.demo.service.impl.DiaryServiceImpl;
 import com.after.demo.service.impl.UploadServiceImpl;
 import com.after.demo.utils.JsonResult;
+import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import net.sf.json.JSONObject;
@@ -33,13 +34,16 @@ public class DiaryController {
 
     @ApiOperation("获取某个用户的所有日记")
     @PostMapping("/diary/get")
-    public JsonResult getDiary(HttpServletRequest request){
-        String nickName = request.getParameter("nickName");
+    public JsonResult getDiary(@ApiParam("用户名")@RequestParam("nickName") String nickName,
+                               @ApiParam("当前页") @RequestParam("start") int start,
+                               @ApiParam("每页大小") @RequestParam("size") int size){
+        //用pageHelper拦截器分页
+        PageHelper.startPage(start,size,"time desc");
         List<Diary> diaryList = diaryService.getDiaryByName(nickName);
         return JsonResult.ok(diaryList);
     }
 
-    @ApiOperation("获取某个用户的所有日记")
+    @ApiOperation("获取一篇日记")
     @PostMapping("/diary/getOne")
     public JsonResult getDiary(@ApiParam("日记id") @RequestParam("id") int id){
         Diary diary = diaryService.getDiaryById(id);

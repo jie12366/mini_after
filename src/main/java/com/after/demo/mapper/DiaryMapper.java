@@ -34,7 +34,7 @@ public interface DiaryMapper {
     List<Diary> listDiary();
 
     /**
-     * 根据id获取数据
+     * 根据userName获取数据
      * @param userName
      * @return
      */

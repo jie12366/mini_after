@@ -21,7 +21,6 @@ public interface PlanMapper {
      * @return
      */
     @Insert("insert into plan(userName,content,time) values(#{userName},#{content},#{time})")
-    @Options(useGeneratedKeys = true,keyColumn = "id",keyProperty = "id")
     int savePlan(String userName,String content,String time);
 
     /**
