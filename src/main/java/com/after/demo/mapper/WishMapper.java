@@ -40,6 +40,14 @@ public interface WishMapper {
     List<Wish> getWishByName(String  userName);
 
     /**
+     * 根据id获取愿望
+     * @param id
+     * @return
+     */
+    @Select("select * from wish where id=#{id}")
+    Wish getOneWishById(int id);
+
+    /**
      * 根据指定开始数获取6条数据
      * @param start
      * @return

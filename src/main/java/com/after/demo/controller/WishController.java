@@ -33,10 +33,24 @@ public class WishController {
 
     @ApiOperation("根据用户名返回所有wish")
     @PostMapping("/wish/get")
-    public JsonResult getWish(HttpServletRequest request){
-        String nickName = request.getParameter("nickName");
+    public JsonResult getWish(@ApiParam("用户名") @RequestParam("nickName") String nickName,
+                              @ApiParam("当前页") @RequestParam("start") int start,
+                              @ApiParam("每页大小") @RequestParam("size") int size){
+
+        PageHelper.startPage(start,size,"time desc");
         List<Wish> wishList = wishService.getWishByName(nickName);
         return JsonResult.ok(wishList);
+    }
+
+    @ApiOperation("根据id获取一个愿望")
+    @PostMapping("/wish/getOne")
+    public JsonResult getOneWish(@ApiParam("愿望id") @RequestParam("id") int id){
+        Wish wish = wishService.getOneWishById(id);
+        if (wish != null){
+            return JsonResult.ok(wish);
+        }else {
+            return JsonResult.errorMsg("获取失败");
+        }
     }
 
     @ApiOperation("随机返回4条wish")

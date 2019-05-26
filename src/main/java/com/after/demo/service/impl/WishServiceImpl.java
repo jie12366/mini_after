@@ -30,6 +30,14 @@ public class WishServiceImpl implements WishService {
     }
 
     @Override
+    public Wish getOneWishById(int id) {
+        if (id > 0){
+            return wishMapper.getOneWishById(id);
+        }
+        return null;
+    }
+
+    @Override
     public List<Wish> getWishByName(String userName) {
         return wishMapper.getWishByName(userName);
     }

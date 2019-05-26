@@ -35,6 +35,13 @@ public interface WishService {
     List<Wish> listWish();
 
     /**
+     * 根据id获取愿望
+     * @param id
+     * @return
+     */
+    Wish getOneWishById(int id);
+
+    /**
      * 根据用户名获取所有的数据
      * @param userName
      * @return
