@@ -45,8 +45,7 @@ public class PlanController {
 
     @ApiOperation("根据id删除计划")
     @PostMapping("/plan/delete")
-    public JsonResult deletePlan(HttpServletRequest request){
-        int id = Integer.parseInt(request.getParameter("id"));
+    public JsonResult deletePlan(@ApiParam("计划id")@RequestParam("id") int id){
         int res = planService.deletePlan(id);
         return JsonResult.ok(res);
     }
