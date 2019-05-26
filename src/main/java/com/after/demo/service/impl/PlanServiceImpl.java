@@ -91,6 +91,10 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public int deletePlan(int id) {
-        return planMapper.deletePlan(id);
+        int res = planMapper.deletePlan(id);
+        Plan plan = planMapper.getPlanById(id);
+        Progress progress = progressMapper.getProgress(plan.getUserName(),plan.getTime());
+        updateProgress(plan.getUserName(),plan.getTime(),progress.getId());
+        return res;
     }
 }
