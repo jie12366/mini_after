@@ -37,7 +37,7 @@ public class PlanServiceImpl implements PlanService {
         if (progress == null){
             progressMapper.saveProgress(userName,"0/1",date1);
         }else {
-            int res1 = updateProgress(userName,date1,progress.getId());
+            updateProgress(userName,date1,progress.getId());
         }
         return res;
     }
@@ -45,14 +45,16 @@ public class PlanServiceImpl implements PlanService {
     private int updateProgress(String userName,String time,int progressId){
 
         Object status1 = planMapper.getSumByStatus(userName,time);
-        int status = 0;
-        if (status1 != null){
-            status = (int)status1;
-        }
-        System.out.println(status);
+
+        System.out.println(status1);
         int sum = planMapper.listPlanByName(userName,time).size();
-        String value = status + "/" + sum;
-        return progressMapper.updateProgress(value,progressId);
+        String value = status1 + "/" + sum;
+        if (sum == 0){
+            //如果更新后没有计划了，就把这个进度删了
+            return progressMapper.deleteProgress(progressId);
+        }else {
+            return  progressMapper.updateProgress(value,progressId);
+        }
     }
 
     @Override

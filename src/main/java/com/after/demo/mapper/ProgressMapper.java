@@ -38,4 +38,12 @@ public interface ProgressMapper {
      */
     @Update("update progress set value=#{value} where id=#{id}")
     int updateProgress(String value,int id);
+
+    /**
+     * 根据id删除进度
+     * @param id
+     * @return
+     */
+    @Delete("delete from progress where id=#{id}")
+    int deleteProgress(int id);
 }

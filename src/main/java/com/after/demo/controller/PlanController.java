@@ -51,8 +51,7 @@ public class PlanController {
 
     @ApiOperation("根据id更新计划的状态")
     @PostMapping("/plan/update")
-    public JsonResult updatePlanStatus(HttpServletRequest request){
-        int id = Integer.parseInt(request.getParameter("id"));
+    public JsonResult updatePlanStatus(@ApiParam("计划id")@RequestParam("id") int id){
         int res = planService.updateStatus(id);
         if (res == 1){
             return JsonResult.ok(res);
