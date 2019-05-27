@@ -43,10 +43,10 @@ public class PlanServiceImpl implements PlanService {
     }
 
     private int updateProgress(String userName,String time,int progressId){
+
         int status1 = planMapper.getSumByStatus(userName,time);
         System.out.println(status1);
         int sum = planMapper.listPlanByName(userName,time).size();
-        System.out.println(sum);
         String value = status1 + "/" + sum;
         return progressMapper.updateProgress(value,progressId);
     }

@@ -54,7 +54,7 @@ public interface PlanMapper {
      * @param time
      * @return
      */
-    @Select("select SUM(status=1) from plan where userName=#{userName} and time=#{time}")
+    @Select("select COUNT(status=1) from plan where userName=#{userName} and time=#{time}")
     int getSumByStatus(String userName,String time);
 
     /**
