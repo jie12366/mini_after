@@ -27,9 +27,8 @@ public class PlanController {
 
     @ApiOperation("将用户的计划存入数据库")
     @PostMapping("/plan/save")
-    public JsonResult savePlan(HttpServletRequest request){
-        String nickName = request.getParameter("nickName");
-        String content = request.getParameter("content");
+    public JsonResult savePlan(@ApiParam("用户名")@RequestParam("nickName") String nickName,
+            @ApiParam("计划内容")@RequestParam("content") String content){
         planService.savePlan(nickName,content);
         return JsonResult.ok();
     }

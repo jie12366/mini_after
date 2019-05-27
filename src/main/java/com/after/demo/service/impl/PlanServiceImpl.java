@@ -35,7 +35,7 @@ public class PlanServiceImpl implements PlanService {
         Progress progress = progressMapper.getProgress(userName,date1);
         System.out.println(progress);
         if (progress == null){
-            progressMapper.saveProgress(userName,"0/0",date1);
+            progressMapper.saveProgress(userName,"0/1",date1);
         }else {
             int res1 = updateProgress(userName,date1,progress.getId());
         }
@@ -44,10 +44,14 @@ public class PlanServiceImpl implements PlanService {
 
     private int updateProgress(String userName,String time,int progressId){
 
-        int status1 = planMapper.getSumByStatus(userName,time);
-        System.out.println(status1);
+        Object status1 = planMapper.getSumByStatus(userName,time);
+        int status = 0;
+        if (status1 != null){
+            status = (int)status1;
+        }
+        System.out.println(status);
         int sum = planMapper.listPlanByName(userName,time).size();
-        String value = status1 + "/" + sum;
+        String value = status + "/" + sum;
         return progressMapper.updateProgress(value,progressId);
     }
 
