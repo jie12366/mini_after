@@ -69,8 +69,8 @@ public class FileUploadConfig {
      */
     @Bean
     public com.qiniu.storage.Configuration qiniuConfig() {
-        //华东
-        return new com.qiniu.storage.Configuration(Zone.zone0());
+        //华南
+        return new com.qiniu.storage.Configuration(Zone.zone2());
     }
 
     /**

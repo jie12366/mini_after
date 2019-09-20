@@ -62,7 +62,7 @@ public class UploadServiceImpl implements UploadService, InitializingBean {
         Response response = uploadFile(destFile);
         //解析上传成功的结果
         DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
-        return  "http://cdn.jie12366.xyz/" + putRet.key;
+        return  "http://cdn2.jie12366.xyz/" + putRet.key;
     }
 
     @Override

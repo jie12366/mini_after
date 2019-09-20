@@ -66,7 +66,6 @@ public class HttpGetConnect {
                 while ((line = br.readLine()) != null){
                     sbf.append(line + "\n");
                 }
-
                 br.close();
                 content = sbf.toString();
             } else {

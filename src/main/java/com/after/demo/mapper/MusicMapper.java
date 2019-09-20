@@ -26,11 +26,19 @@ public interface MusicMapper {
     int saveMusic(String name,String imgUrl,String src);
 
     /**
-     * 获取数据库中的歌曲信息
+     * 获取数据库记录的大小
      * @return list
      */
-    @Select("select * from music")
-    List<Music> listMusic();
+    @Select("select count(*) from music")
+    int getSize();
+
+    /**
+     * 根据名字判断是否存在
+     * @param name
+     * @return
+     */
+    @Select("select * from music where name=#{name}")
+    Music getIdByName(String name);
 
     /**
      * 根据id随机获取一首歌

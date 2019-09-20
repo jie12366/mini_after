@@ -25,19 +25,18 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public int saveMusic(String name, String imgUrl, String src) {
-        List<Music> musicList = musicMapper.listMusic();
-        for (Music music:musicList){
-            if (music.getName().equals(name)){
-                return 0;
-            }
+        System.out.println(name);
+        if (musicMapper.getIdByName(name) != null){
+            return 0;
+        }else{
+            return musicMapper.saveMusic(name,imgUrl,src);
         }
-        return musicMapper.saveMusic(name,imgUrl,src);
     }
 
     @Override
     @Cacheable(value = "music")
-    public List<Music> listMusic() {
-        return musicMapper.listMusic();
+    public int getSize() {
+        return musicMapper.getSize();
     }
 
     @Override

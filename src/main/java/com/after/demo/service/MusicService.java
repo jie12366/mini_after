@@ -30,7 +30,7 @@ public interface MusicService {
      * 获取数据库中的歌曲信息
      * @return list
      */
-    List<Music> listMusic();
+    int getSize();
 
     /**
      * 根据id随机获取一首歌
